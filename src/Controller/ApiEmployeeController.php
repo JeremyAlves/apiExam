@@ -110,4 +110,17 @@ class ApiEmployeeController extends AbstractController
 
         return new Response(null, 202);
     }
+
+    /**
+    * @Route("api/employees/{employee}", name="api_employee_delete", methods={"DELETE"})
+    */
+    public function delete(Request $request, Employee $employee) {
+
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($employee);
+
+        $manager->flush();
+
+        return new Response(null, 200);
+    }
 }
