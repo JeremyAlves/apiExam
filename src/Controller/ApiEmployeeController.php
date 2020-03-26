@@ -36,7 +36,6 @@ class ApiEmployeeController extends AbstractController
     */
     public function index()
     {
-
         $employees = $this->getDoctrine()->getRepository(Employee::class)->findAll();
 
         $data = $this->serializer->normalize($employees, null, ['groups' => 'all_employees']);
@@ -47,6 +46,25 @@ class ApiEmployeeController extends AbstractController
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
+    }
+
+    /**
+    * @Route("api/employees/{employee}", name="employee_show", methods={"GET"}, requirements={"employee"="\d+"})
+    */
+    public function show(Employee $employee): Response
+    {
+        // récuperer les infos d'un employee
+        $employee = $this->getDoctrine()->getRepository(Employee::class)->find($employee);
+
+        $data = $this->serializer->normalize($employee, null, ['groups' => 'all_employees']);
+
+        $jsonContent = $this->serializer->serialize($data, 'json');
+
+        $response = new Response($jsonContent);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+
     }
 
     /**
@@ -123,4 +141,5 @@ class ApiEmployeeController extends AbstractController
 
         return new Response(null, 200);
     }
+
 }
