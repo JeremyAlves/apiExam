@@ -32,7 +32,7 @@ class ApiEmployeeController extends AbstractController
     }
 
     /**
-    * @Route("/api/employees", name="api_employee")
+    * @Route("/api/employees", name="api_employee", methods={"GET"})
     */
     public function index()
     {
@@ -50,7 +50,7 @@ class ApiEmployeeController extends AbstractController
     }
 
     /**
-    * @Route("/api/employees", name="api_employee", methods={"POST"})
+    * @Route("/api/employees/add", name="api_employee_add", methods={"POST"})
     */
     public function create(Request $request) {
 
