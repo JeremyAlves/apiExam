@@ -34,6 +34,7 @@ class Employee
 
     /**
      * @ORM\Column(type="date")
+     * @Groups("all_employees")
      */
     private $employement_date;
 
@@ -79,6 +80,10 @@ class Employee
     public function setEmployementDate(\DateTimeInterface $employement_date): self
     {
         $this->employement_date = $employement_date;
+
+        if($employement_date){
+            $employement_date->format('Y-m-d');
+        }
 
         return $this;
     }
